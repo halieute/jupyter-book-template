@@ -5,10 +5,10 @@
 
 #######################################################################################
 # Book settings
-title: Jupyter Book Demo # The title of the book. Will be placed in the left navbar.
+title: Jupyter Book Template # The title of the book. Will be placed in the left navbar.
 author: Souleymane Maman Nouri Souley # The author of the book
 copyright: "2025" # Copyright year to be placed in the footer
-logo: logo.png # A path to the book logo
+# logo: logo.png # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 # Auto-exclude files not in the toc
@@ -17,7 +17,7 @@ only_build_toc_files: true
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: "off" # Whether to execute notebooks at build time. Must be one of ("auto", "force", "cache", "off")
+  execute_notebooks: "auto" # Whether to execute notebooks at build time. Must be one of ("auto", "force", "cache", "off")
   cache: "" # A path to the jupyter cache that will be used to store execution artifacts. Defaults to `_build/.jupyter_cache/`
   exclude_patterns: [] # A list of patterns to *skip* in execution (e.g. a notebook that takes a really long time)
   timeout: 100 # The maximum time (in seconds) each notebook cell is allowed to run.
@@ -31,6 +31,8 @@ launch_buttons:
   colab_url: "https://colab.research.google.com"
   notebook_interface: "jupyterlab"
   binderhub_url: "https://mybinder.org"
+  thebe: true
+  branch: main
 
 # Information about where the book exists on the web
 repository:
@@ -42,20 +44,32 @@ repository:
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   favicon: "fav.ico"
-  baseurl: https://halieute.github.io/jupyter-book-template # The base URL where your book will be hosted.
+  baseurl: https://halieute.github.io/jupyter-book-template/ # The base URL where your book will be hosted.
   use_repository_button: true
   use_issues_button: true
   use_edit_page_button: true
-  use_download_button: true
-  # thebe: true
-  # google_analytics_id: G-XXXXXXX
+  use_download_button: true # google_analytics_id: G-XXXXXXX
+  thebe: true # Enable Thebe
 
 sphinx:
   config:
-    html_extra_path: ["CNAME"]
+    exclude_patterns:
+        - .venv/**
+        - .VSCode/**
+        - "**/.venv/**"
+        - "**/site-packages/**"
+        - _build/**
+        - "**/_build/**"
+        - "**/.ipynb_checkpoints/**"
+        - "**/.pytest_cache/**"
+        - "**/__pycache__/**"
+        - index.rst
+
+    # html_extra_path: ["CNAME", "robots.txt"]
     html_theme_options:
       use_download_button: true
       repository_url: https://github.com/halieute/jupyter-book-template
+      repository_branch: main # Specify the correct branch for theme options
       use_issues_button: true
       use_repository_button: true
       use_edit_page_button: true
@@ -63,6 +77,7 @@ sphinx:
         {
           binderhub_url: "https://mybinder.org",
           colab_url: "https://colab.research.google.com",
+          thebe: true,
         }
     bibtex_reference_style: author_year
 
